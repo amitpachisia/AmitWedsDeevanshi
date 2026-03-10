@@ -324,14 +324,14 @@ body.hindi-active .section-header h2 {
 /* === SANGEET — Dance / Party === */
 .sangeet-bg {
   background-image:
-    linear-gradient(135deg, rgba(10,5,30,0.72) 0%, rgba(80,10,40,0.65) 60%, rgba(10,5,30,0.75) 100%),
-    url('https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?w=1600&q=80');
+    linear-gradient(135deg, rgba(10,5,30,0.72) 0%, rgba(80,10,40,0.65) 60%, rgba(10,5,30,0.75) 100%);
 }
 .sangeet-bg::after {
   content: '';
   position: absolute;
   inset: 0;
   background: radial-gradient(ellipse at 50% 40%, rgba(220,50,120,0.25) 0%, transparent 65%);
+  z-index: 1;
 }
 
 /* === BHAAT — Traditional warm ceremony === */
@@ -588,6 +588,16 @@ body.hindi-active .footer-names {
   letter-spacing: 1px;
 }
 
+/* ===== SANGEET VIDEO — ensure video fills behind overlay ===== */
+.sangeet-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .hero-box { padding: 36px 20px; }
@@ -641,7 +651,7 @@ body.hindi-active .footer-names {
     <span class="card-corner-tr"></span><span class="card-corner-bl"></span>
     <div class="event-tag" data-key="haldiTag">Haldi</div>
     <h3 data-key="haldiTitle">Haldi Carnival</h3>
-    <div class="event-datetime" data-key="haldiDate">April 18, 2026 &nbsp;•&nbsp; 11:15 AM</div>
+    <div class="event-datetime" data-key="haldiDate">April 18, 2026 &nbsp;•&nbsp; 11:00 AM</div>
     <div class="event-location" data-key="haldiLoc">Maheshwari Bhavan</div>
     <span class="event-dress" data-key="haldiDesc">✦ Shades of Lavender ✦</span>
   </div>
@@ -649,12 +659,22 @@ body.hindi-active .footer-names {
 
 <!-- SANGEET -->
 <section class="event-block reveal">
-  <div class="event-bg sangeet-bg"></div>
+  <div class="event-bg sangeet-bg">
+    <video
+      class="sangeet-video"
+      autoplay
+      muted
+      loop
+      playsinline
+    >
+      <source src="dance.mp4" type="video/mp4">
+    </video>
+  </div>
   <div class="event-card sangeet-card">
     <span class="card-corner-tr"></span><span class="card-corner-bl"></span>
-    <div class="event-tag" data-key="sangeetTag">Sangeet</div>
+    <div class="event-tag" data-key="sangeetTag">Sangeet Night</div>
     <h3 data-key="sangeetTitle">Sangeet Night</h3>
-    <div class="event-datetime" data-key="sangeetDate">April 18, 2026 &nbsp;•&nbsp; 06:15 PM</div>
+    <div class="event-datetime" data-key="sangeetDate">April 18, 2026 &nbsp;•&nbsp; 06:30 PM</div>
     <div class="event-location" data-key="sangeetLoc">Maheshwari Bhavan</div>
     <span class="event-dress" data-key="sangeetDesc">✦ Glitz & Glamour ✦</span>
   </div>
@@ -667,7 +687,7 @@ body.hindi-active .footer-names {
     <span class="card-corner-tr"></span><span class="card-corner-bl"></span>
     <div class="event-tag" data-key="bhaatTag">Bhaat</div>
     <h3 data-key="bhaatTitle">Bhaat Program</h3>
-    <div class="event-datetime" data-key="bhaatDate">April 19, 2026 &nbsp;•&nbsp; 11:15 AM</div>
+    <div class="event-datetime" data-key="bhaatDate">April 19, 2026 &nbsp;•&nbsp; 11:00 AM</div>
     <div class="event-location" data-key="bhaatLoc">Maheshwari Bhavan</div>
     <span class="event-dress" data-key="bhaatDesc">✦ Traditional Attire ✦</span>
   </div>
@@ -716,17 +736,17 @@ const translations = {
     itineraryTitle: "Wedding Itinerary",
     haldiTag: "Haldi Ceremony",
     haldiTitle: "Haldi Carnival",
-    haldiDate: "April 18, 2026 • 11:15 AM",
+    haldiDate: "April 18, 2026 • 11:00 AM",
     haldiLoc: "Maheshwari Bhavan",
     haldiDesc: "✦ Shades of Lavender ✦",
     sangeetTag: "Sangeet Night",
     sangeetTitle: "Sangeet Night",
-    sangeetDate: "April 18, 2026 • 06:15 PM",
+    sangeetDate: "April 18, 2026 • 06:30 PM",
     sangeetLoc: "Maheshwari Bhavan",
     sangeetDesc: "✦ Glitz & Glamour ✦",
     bhaatTag: "Bhaat Program",
     bhaatTitle: "Bhaat Program",
-    bhaatDate: "April 19, 2026 • 11:15 AM",
+    bhaatDate: "April 19, 2026 • 11:00 AM",
     bhaatLoc: "Maheshwari Bhavan",
     bhaatDesc: "✦ Traditional Attire ✦",
     weddingTag: "The Wedding",
@@ -749,7 +769,7 @@ const translations = {
     itineraryTitle: "विवाह कार्यक्रम",
     haldiTag: "हल्दी समारोह",
     haldiTitle: "हल्दी उत्सव",
-    haldiDate: "18 अप्रैल 2026 • प्रात: 11:15",
+    haldiDate: "18 अप्रैल 2026 • प्रात: 11:00",
     haldiLoc: "महेश्वरी भवन",
     haldiDesc: "✦ लैवेंडर परिधान ✦",
     sangeetTag: "संगीत संध्या",
@@ -759,7 +779,7 @@ const translations = {
     sangeetDesc: "✦ नृत्य और उत्सव ✦",
     bhaatTag: "भात कार्यक्रम",
     bhaatTitle: "भात कार्यक्रम",
-    bhaatDate: "19 अप्रैल 2026 • प्रात: 11:15",
+    bhaatDate: "19 अप्रैल 2026 • प्रात: 11:00",
     bhaatLoc: "महेश्वरी भवन",
     bhaatDesc: "✦ पारंपरिक वेशभूषा ✦",
     weddingTag: "शुभ विवाह",
