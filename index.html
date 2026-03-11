@@ -80,6 +80,56 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
 
+/* ===== MUSIC TOGGLE BUTTON ===== */
+.music-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 1000;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--gold-gradient);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 0 6px 22px rgba(201,150,60,0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+.music-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 30px rgba(201,150,60,0.65);
+}
+.music-btn .music-icon {
+  transition: opacity 0.2s;
+}
+
+/* Music play hint banner */
+.music-hint {
+  position: fixed;
+  bottom: 90px;
+  right: 22px;
+  z-index: 1000;
+  background: rgba(30,10,20,0.85);
+  backdrop-filter: blur(10px);
+  color: var(--gold-light);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.92rem;
+  font-style: italic;
+  padding: 10px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(201,150,60,0.4);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+  white-space: nowrap;
+}
+.music-hint.hidden { opacity: 0; }
+
 /* ===== ANIMATIONS ===== */
 @keyframes fadeInDown {
   from { opacity:0; transform: translateY(-20px); }
@@ -313,7 +363,6 @@ body.hindi-active .section-header h2 {
     linear-gradient(135deg, rgba(92,61,143,0.75) 0%, rgba(155,126,200,0.6) 50%, rgba(92,61,143,0.75) 100%),
     url('haldi.jpg');
 }
-/* fallback layered tint — lavender feel */
 .haldi-bg::after {
   content: '';
   position: absolute;
@@ -381,7 +430,6 @@ body.hindi-active .section-header h2 {
   box-shadow: 0 16px 55px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
 }
 
-/* Gold corner accents instead of full border */
 .event-card::before,
 .event-card::after {
   content: '';
@@ -394,7 +442,6 @@ body.hindi-active .section-header h2 {
 .event-card::before { top: 8px; left: 8px; border-width: 1px 0 0 1px; }
 .event-card::after  { bottom: 8px; right: 8px; border-width: 0 1px 1px 0; }
 
-/* Extra two corners via a wrapper pseudo */
 .event-card .card-corner-tr,
 .event-card .card-corner-bl {
   position: absolute;
@@ -462,7 +509,6 @@ body.hindi-active .event-card h3 {
   font-weight: 300;
 }
 
-/* Thin top glow line per section — all text stays white on dark glass */
 .haldi-card {
   border-top: 2px solid rgba(183,150,230,0.8);
   background: rgba(60,20,100,0.32);
@@ -588,7 +634,7 @@ body.hindi-active .footer-names {
   letter-spacing: 1px;
 }
 
-/* ===== SANGEET VIDEO — ensure video fills behind overlay ===== */
+/* ===== SANGEET VIDEO ===== */
 .sangeet-video {
   position: absolute;
   inset: 0;
@@ -604,10 +650,23 @@ body.hindi-active .footer-names {
   .event-card { padding: 30px 24px; }
   .time-box { min-width: 58px; }
   .corner { width: 20px; height: 20px; }
+  .music-btn { bottom: 20px; right: 20px; width: 46px; height: 46px; font-size: 1.1rem; }
+  .music-hint { bottom: 78px; right: 16px; font-size: 0.82rem; }
 }
 </style>
 </head>
 <body>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Music Toggle Button -->
+<button class="music-btn" id="musicBtn" title="Toggle Music" onclick="toggleMusic()">
+  <span class="music-icon" id="musicIcon">🎵</span>
+</button>
+<div class="music-hint" id="musicHint">♪ Tap to play music</div>
 
 <!-- Language Toggle -->
 <nav class="lang-switch">
@@ -725,6 +784,89 @@ body.hindi-active .footer-names {
 </footer>
 
 <script>
+/* ===== BACKGROUND MUSIC ===== */
+const audio = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+const musicIcon = document.getElementById('musicIcon');
+const musicHint = document.getElementById('musicHint');
+let musicPlaying = false;
+let hintDismissed = false;
+
+function startMusic() {
+  audio.volume = 0.45;
+  audio.play().then(() => {
+    musicPlaying = true;
+    musicIcon.textContent = '🔊';
+    dismissHint();
+  }).catch(() => {
+    // Autoplay blocked — wait for user gesture
+  });
+}
+
+function toggleMusic() {
+  if (musicPlaying) {
+    audio.pause();
+    musicPlaying = false;
+    musicIcon.textContent = '🎵';
+  } else {
+    audio.volume = 0.45;
+    audio.play();
+    musicPlaying = true;
+    musicIcon.textContent = '🔊';
+    dismissHint();
+  }
+}
+
+function dismissHint() {
+  if (!hintDismissed) {
+    hintDismissed = true;
+    musicHint.classList.add('hidden');
+  }
+}
+
+// Auto-play attempt on page load
+window.addEventListener('load', () => {
+  audio.volume = 0.45;
+  const playPromise = audio.play();
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      musicPlaying = true;
+      musicIcon.textContent = '🔊';
+      dismissHint();
+    }).catch(() => {
+      // Autoplay blocked by browser — show hint to user
+      musicIcon.textContent = '🎵';
+    });
+  }
+});
+
+// Auto-play on first user interaction anywhere on page (handles browser autoplay policy)
+function handleFirstInteraction() {
+  if (!musicPlaying) {
+    audio.volume = 0.45;
+    audio.play().then(() => {
+      musicPlaying = true;
+      musicIcon.textContent = '🔊';
+      dismissHint();
+    }).catch(() => {});
+  }
+  document.removeEventListener('click', handleFirstInteraction);
+  document.removeEventListener('touchstart', handleFirstInteraction);
+  document.removeEventListener('keydown', handleFirstInteraction);
+  document.removeEventListener('scroll', handleFirstInteraction);
+}
+
+document.addEventListener('click', handleFirstInteraction);
+document.addEventListener('touchstart', handleFirstInteraction);
+document.addEventListener('keydown', handleFirstInteraction);
+document.addEventListener('scroll', handleFirstInteraction, { passive: true });
+
+// Hide hint after 6 seconds even if music hasn't started
+setTimeout(() => {
+  if (!hintDismissed) dismissHint();
+}, 6000);
+
+
 /* ===== TRANSLATIONS ===== */
 const translations = {
   en: {
