@@ -561,18 +561,114 @@ body.hindi-active .event-card h3 {
 }
 body.hindi-active .venue-section h2 { font-family: 'Rozha One', serif; }
 
-.venue-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2rem;
-  color: var(--primary-deep);
-  margin: 20px 0 8px;
+/* ===== VENUE CARDS GRID ===== */
+.venue-cards {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-top: 44px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.venue-sub {
+.venue-card {
+  flex: 1;
+  min-width: 260px;
+  max-width: 380px;
+  background: #fff;
+  border: 1px solid rgba(201,150,60,0.25);
+  border-radius: 4px;
+  padding: 36px 28px 32px;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(107,30,46,0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  text-align: center;
+}
+.venue-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 48px rgba(107,30,46,0.14);
+}
+
+/* Corner accents on venue cards */
+.venue-card::before, .venue-card::after {
+  content: '';
+  position: absolute;
+  width: 18px; height: 18px;
+  border-color: rgba(201,150,60,0.55);
+  border-style: solid;
+  pointer-events: none;
+}
+.venue-card::before { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
+.venue-card::after  { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
+
+.venue-card-corner-tr, .venue-card-corner-bl {
+  position: absolute;
+  width: 18px; height: 18px;
+  border-color: rgba(201,150,60,0.55);
+  border-style: solid;
+  pointer-events: none;
+}
+.venue-card-corner-tr { top: 10px; right: 10px; border-width: 1px 1px 0 0; }
+.venue-card-corner-bl { bottom: 10px; left: 10px; border-width: 0 0 1px 1px; }
+
+.venue-badge {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--primary);
+  border: 1px solid rgba(107,30,46,0.3);
+  padding: 4px 14px;
+  border-radius: 50px;
+  margin-bottom: 16px;
+  background: rgba(107,30,46,0.04);
+}
+
+.venue-icon {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  display: block;
+  line-height: 1;
+}
+
+.venue-name {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
+  font-size: 1.8rem;
+  color: var(--primary-deep);
+  margin-bottom: 6px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+body.hindi-active .venue-name { font-family: 'Rozha One', serif; font-size: 1.5rem; }
+
+.venue-city {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
   font-style: italic;
   color: var(--text-mid);
+  margin-bottom: 6px;
+}
+
+.venue-events {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--gold);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin: 10px 0 22px;
+  opacity: 0.85;
+}
+
+.venue-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--gold-gradient);
+  margin: 16px auto;
+  opacity: 0.6;
 }
 
 .map-btn {
@@ -582,20 +678,27 @@ body.hindi-active .venue-section h2 { font-family: 'Rozha One', serif; }
   background: var(--gold-gradient);
   color: #3d1a00;
   font-family: 'Cinzel', serif;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  padding: 17px 38px;
+  padding: 14px 28px;
   border-radius: 50px;
   text-decoration: none;
-  margin-top: 36px;
-  box-shadow: 0 8px 24px rgba(201,150,60,0.35);
+  box-shadow: 0 6px 20px rgba(201,150,60,0.3);
   transition: all 0.35s ease;
 }
 .map-btn:hover {
   transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 14px 35px rgba(201,150,60,0.5);
+  box-shadow: 0 12px 30px rgba(201,150,60,0.5);
+}
+
+.venue-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--text-mid);
+  margin-top: 10px;
 }
 
 /* ===== FOOTER ===== */
@@ -652,6 +755,8 @@ body.hindi-active .footer-names {
   .corner { width: 20px; height: 20px; }
   .music-btn { bottom: 20px; right: 20px; width: 46px; height: 46px; font-size: 1.1rem; }
   .music-hint { bottom: 78px; right: 16px; font-size: 0.82rem; }
+  .venue-cards { gap: 20px; }
+  .venue-card { min-width: 240px; padding: 30px 20px 26px; }
 }
 </style>
 </head>
@@ -767,14 +872,43 @@ body.hindi-active .footer-names {
 
 <!-- VENUE -->
 <section class="venue-section reveal">
-  <h2 data-key="venueTitle">The Venue</h2>
+  <h2 data-key="venueTitle">The Venues</h2>
   <div class="mandala-divider">❧ ✦ ❧</div>
-  <p class="venue-sub" data-key="venueText">We can't wait to celebrate with you at</p>
-  <p class="venue-name">Maheshwari Bhavan</p>
-  <p class="venue-sub">Sri Ganganagar, Rajasthan</p>
-  <a class="map-btn" target="_blank" href="https://maps.app.goo.gl/z3WUJu8RiM31ocX36" data-key="mapBtn">
-    🗺 Navigate via Google Maps
-  </a>
+  <p class="venue-sub" data-key="venueText">We can't wait to celebrate with you at these beautiful locations</p>
+
+  <div class="venue-cards">
+
+    <!-- Maheshwari Bhavan -->
+    <div class="venue-card">
+      <span class="venue-card-corner-tr"></span>
+      <span class="venue-card-corner-bl"></span>
+      <span class="venue-icon">🏛️</span>
+      <div class="venue-badge" data-key="venueBadge1">Stay & Ceremonies</div>
+      <div class="venue-name" data-key="venueName1">Maheshwari Bhavan</div>
+      <div class="venue-city">Sri Ganganagar, Rajasthan</div>
+      <div class="venue-divider"></div>
+      <div class="venue-events" data-key="venueEvents1">Haldi · Sangeet · Mayra</div>
+      <a class="map-btn" target="_blank" href="https://maps.app.goo.gl/z3WUJu8RiM31ocX36" data-key="mapBtn1">
+        🗺 &nbsp;Navigate
+      </a>
+    </div>
+
+    <!-- City Garden -->
+    <div class="venue-card">
+      <span class="venue-card-corner-tr"></span>
+      <span class="venue-card-corner-bl"></span>
+      <span class="venue-icon">🌸</span>
+      <div class="venue-badge" data-key="venueBadge2">Wedding Ceremony</div>
+      <div class="venue-name" data-key="venueName2">City Garden</div>
+      <div class="venue-city">Sri Ganganagar, Rajasthan</div>
+      <div class="venue-divider"></div>
+      <div class="venue-events" data-key="venueEvents2">The Wedding · April 19 · 8:15 PM</div>
+      <a class="map-btn" target="_blank" href="https://maps.app.goo.gl/jw2c1pSFFBw5MGaB7" data-key="mapBtn2">
+        🗺 &nbsp;Navigate
+      </a>
+    </div>
+
+  </div>
 </section>
 
 <!-- FOOTER -->
@@ -798,9 +932,7 @@ function startMusic() {
     musicPlaying = true;
     musicIcon.textContent = '🔊';
     dismissHint();
-  }).catch(() => {
-    // Autoplay blocked — wait for user gesture
-  });
+  }).catch(() => {});
 }
 
 function toggleMusic() {
@@ -824,7 +956,6 @@ function dismissHint() {
   }
 }
 
-// Auto-play attempt on page load
 window.addEventListener('load', () => {
   audio.volume = 0.45;
   const playPromise = audio.play();
@@ -834,13 +965,11 @@ window.addEventListener('load', () => {
       musicIcon.textContent = '🔊';
       dismissHint();
     }).catch(() => {
-      // Autoplay blocked by browser — show hint to user
       musicIcon.textContent = '🎵';
     });
   }
 });
 
-// Auto-play on first user interaction anywhere on page (handles browser autoplay policy)
 function handleFirstInteraction() {
   if (!musicPlaying) {
     audio.volume = 0.45;
@@ -861,7 +990,6 @@ document.addEventListener('touchstart', handleFirstInteraction);
 document.addEventListener('keydown', handleFirstInteraction);
 document.addEventListener('scroll', handleFirstInteraction, { passive: true });
 
-// Hide hint after 6 seconds even if music hasn't started
 setTimeout(() => {
   if (!hintDismissed) dismissHint();
 }, 6000);
@@ -896,9 +1024,16 @@ const translations = {
     weddingDate: "April 19, 2026 • 08:15 PM",
     weddingLoc: "City Garden, Sri Ganganagar",
     weddingDesc: "✦ Ethnic / Formal ✦",
-    venueTitle: "The Venue",
-    venueText: "We can't wait to celebrate with you at",
-    mapBtn: "🗺 Navigate via Google Maps",
+    venueTitle: "The Venues",
+    venueText: "We can't wait to celebrate with you at these beautiful locations",
+    venueBadge1: "Stay & Ceremonies",
+    venueName1: "Maheshwari Bhavan",
+    venueEvents1: "Haldi · Sangeet · Mayra",
+    mapBtn1: "🗺 \u00a0Navigate",
+    venueBadge2: "Wedding Ceremony",
+    venueName2: "City Garden",
+    venueEvents2: "The Wedding · April 19 · 8:15 PM",
+    mapBtn2: "🗺 \u00a0Navigate",
     footerNames: "Pachisia & Maheshwari Pariwar",
     footerMsg: "With love & blessings — we await your presence 💛"
   },
@@ -930,8 +1065,15 @@ const translations = {
     weddingLoc: "सिटी गार्डन, श्री गंगानगर",
     weddingDesc: "✦ पारंपरिक परिधान / औपचारिक ✦",
     venueTitle: "विवाह स्थल",
-    venueText: "हमें आपके आगमन की प्रतीक्षा रहेगी",
-    mapBtn: "🗺 गूगल मैप्स पर देखें",
+    venueText: "हमें आपके आगमन की प्रतीक्षा रहेगी इन खूबसूरत स्थलों पर",
+    venueBadge1: "ठहरने व आयोजन हेतु",
+    venueName1: "महेश्वरी भवन",
+    venueEvents1: "हल्दी · संगीत · मायरा",
+    mapBtn1: "🗺 \u00a0नेविगेट करें",
+    venueBadge2: "विवाह समारोह",
+    venueName2: "सिटी गार्डन",
+    venueEvents2: "विवाह · 19 अप्रैल · रात्रि 8:15",
+    mapBtn2: "🗺 \u00a0नेविगेट करें",
     footerNames: "पचीसिया एवं महेश्वरी परिवार",
     footerMsg: "सस्नेह निमंत्रण एवं आशीर्वाद 💛"
   }
