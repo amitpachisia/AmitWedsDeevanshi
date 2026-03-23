@@ -28,9 +28,7 @@
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
-
 html { scroll-behavior: smooth; }
-
 body {
   font-family: 'Poppins', sans-serif;
   background-color: var(--bg-cream);
@@ -38,7 +36,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ===== DECORATIVE ELEMENTS ===== */
 .mandala-divider {
   text-align: center;
   padding: 15px 0;
@@ -48,7 +45,6 @@ body {
   opacity: 0.7;
 }
 
-/* ===== LANG TOGGLE ===== */
 .lang-switch {
   position: fixed;
   top: 22px;
@@ -80,7 +76,6 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
 
-/* ===== MUSIC TOGGLE BUTTON ===== */
 .music-btn {
   position: fixed;
   bottom: 28px;
@@ -104,11 +99,7 @@ body {
   transform: scale(1.1);
   box-shadow: 0 10px 30px rgba(201,150,60,0.65);
 }
-.music-btn .music-icon {
-  transition: opacity 0.2s;
-}
 
-/* Music play hint banner */
 .music-hint {
   position: fixed;
   bottom: 90px;
@@ -130,7 +121,6 @@ body {
 }
 .music-hint.hidden { opacity: 0; }
 
-/* ===== ANIMATIONS ===== */
 @keyframes fadeInDown {
   from { opacity:0; transform: translateY(-20px); }
   to { opacity:1; transform: translateY(0); }
@@ -173,10 +163,7 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden;
 }
-
-/* Decorative top & bottom border */
 .hero::before {
   content: '';
   position: absolute;
@@ -209,20 +196,19 @@ canvas#fireworks {
   width: 100%;
 }
 
-/* Ornate border box around hero content */
 .hero-box {
   border: 1px solid rgba(201,150,60,0.45);
   padding: 50px 40px;
   position: relative;
 }
-.hero-box::before, .hero-box::after {
+.hero-box::before {
   content: '✦';
   position: absolute;
   font-size: 1.4rem;
   color: var(--gold);
   opacity: 0.8;
+  top: -14px; left: 50%; transform: translateX(-50%);
 }
-.hero-box::before { top: -14px; left: 50%; transform: translateX(-50%); background: transparent; }
 .corner {
   position: absolute;
   width: 30px; height: 30px;
@@ -244,7 +230,6 @@ canvas#fireworks {
   opacity: 0.9;
   text-transform: uppercase;
 }
-
 .save-date {
   font-family: 'Cinzel', serif;
   text-transform: uppercase;
@@ -254,7 +239,6 @@ canvas#fireworks {
   margin-bottom: 8px;
   font-weight: 600;
 }
-
 .hero h1 {
   font-family: 'Pinyon Script', cursive;
   font-size: clamp(3.2rem, 9vw, 6rem);
@@ -272,7 +256,6 @@ body.hindi-active .hero h1 {
   font-size: clamp(2.4rem, 6.5vw, 4.5rem);
   letter-spacing: 1px;
 }
-
 .wedding-date {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.6rem;
@@ -314,6 +297,83 @@ body.hindi-active .hero h1 {
   margin-top: 4px;
 }
 
+/* ===== SCROLL CUE ===== */
+.scroll-cue {
+  position: absolute;
+  bottom: 36px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  animation: fadeInUp 1.6s ease-out 2.2s both;
+  text-decoration: none;
+}
+.scroll-cue-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+.scroll-cue-mouse {
+  width: 26px;
+  height: 40px;
+  border: 1.5px solid rgba(201,150,60,0.55);
+  border-radius: 13px;
+  display: flex;
+  justify-content: center;
+  padding-top: 7px;
+}
+.scroll-cue-wheel {
+  width: 3px;
+  height: 7px;
+  background: var(--gold-light);
+  border-radius: 2px;
+  animation: scroll-wheel 1.9s ease-in-out infinite;
+  opacity: 0.8;
+}
+.scroll-cue-arrows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2px;
+}
+.scroll-cue-arrows span {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-right: 1.5px solid rgba(201,150,60,0.7);
+  border-bottom: 1.5px solid rgba(201,150,60,0.7);
+  transform: rotate(45deg);
+  animation: scroll-arrow 1.9s ease-in-out infinite;
+  margin-top: -4px;
+}
+.scroll-cue-arrows span:nth-child(2) { animation-delay: 0.18s; opacity: 0.6; }
+.scroll-cue-arrows span:nth-child(3) { animation-delay: 0.36s; opacity: 0.35; }
+
+@keyframes scroll-wheel {
+  0%   { transform: translateY(0);    opacity: 0.8; }
+  60%  { transform: translateY(10px); opacity: 0;   }
+  61%  { transform: translateY(0);    opacity: 0;   }
+  100% { transform: translateY(0);    opacity: 0.8; }
+}
+@keyframes scroll-arrow {
+  0%, 100% { opacity: 0.85; transform: rotate(45deg) translate(0,0); }
+  50%       { opacity: 0.25; transform: rotate(45deg) translate(4px,4px); }
+}
+.scroll-cue.hide {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
 /* ===== SECTION HEADER ===== */
 .section-header {
   text-align: center;
@@ -337,7 +397,7 @@ body.hindi-active .section-header h2 {
   letter-spacing: 8px;
 }
 
-/* ===== EVENT BLOCKS — full bleed with overlay ===== */
+/* ===== EVENT BLOCKS ===== */
 .event-block {
   position: relative;
   min-height: 75vh;
@@ -346,7 +406,6 @@ body.hindi-active .section-header h2 {
   justify-content: center;
   overflow: hidden;
 }
-
 .event-bg {
   position: absolute;
   inset: 0;
@@ -357,7 +416,6 @@ body.hindi-active .section-header h2 {
 }
 .event-block:hover .event-bg { transform: scale(1.05); }
 
-/* === HALDI — Lavender theme === */
 .haldi-bg {
   background-image:
     linear-gradient(135deg, rgba(92,61,143,0.75) 0%, rgba(155,126,200,0.6) 50%, rgba(92,61,143,0.75) 100%),
@@ -369,8 +427,6 @@ body.hindi-active .section-header h2 {
   inset: 0;
   background: radial-gradient(ellipse at 30% 60%, rgba(155,126,200,0.4) 0%, transparent 70%);
 }
-
-/* === SANGEET — Dance / Party === */
 .sangeet-bg {
   background-image:
     linear-gradient(135deg, rgba(10,5,30,0.72) 0%, rgba(80,10,40,0.65) 60%, rgba(10,5,30,0.75) 100%);
@@ -382,8 +438,6 @@ body.hindi-active .section-header h2 {
   background: radial-gradient(ellipse at 50% 40%, rgba(220,50,120,0.25) 0%, transparent 65%);
   z-index: 1;
 }
-
-/* === BHAAT — Traditional warm ceremony === */
 .bhaat-bg {
   background-image:
     linear-gradient(135deg, rgba(100,30,10,0.68) 0%, rgba(180,90,20,0.55) 50%, rgba(100,30,10,0.68) 100%),
@@ -395,8 +449,6 @@ body.hindi-active .section-header h2 {
   inset: 0;
   background: radial-gradient(ellipse at 70% 30%, rgba(240,160,40,0.25) 0%, transparent 65%);
 }
-
-/* === WEDDING — Grand ceremony === */
 .wedding-bg {
   background-image:
     linear-gradient(135deg, rgba(30,8,18,0.65) 0%, rgba(80,20,35,0.6) 50%, rgba(30,8,18,0.7) 100%),
@@ -409,14 +461,14 @@ body.hindi-active .section-header h2 {
   background: radial-gradient(ellipse at 50% 70%, rgba(201,150,60,0.2) 0%, transparent 65%);
 }
 
-/* ===== FLOATING CARD — transparent glass ===== */
+/* ===== EVENT CARD ===== */
 .event-card {
   position: relative;
   z-index: 3;
   max-width: 420px;
   width: calc(100% - 48px);
-  background: rgba(0, 0, 0, 0.28);
-  backdrop-filter: blur(0px) saturate(1.2);
+  background: rgba(0,0,0,0.28);
+  backdrop-filter: blur(2px) saturate(1.2);
   -webkit-backdrop-filter: blur(2px) saturate(1.2);
   padding: 36px 38px 32px;
   border-radius: 2px;
@@ -429,7 +481,6 @@ body.hindi-active .section-header h2 {
   transform: translateY(-6px);
   box-shadow: 0 16px 55px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
 }
-
 .event-card::before,
 .event-card::after {
   content: '';
@@ -441,7 +492,6 @@ body.hindi-active .section-header h2 {
 }
 .event-card::before { top: 8px; left: 8px; border-width: 1px 0 0 1px; }
 .event-card::after  { bottom: 8px; right: 8px; border-width: 0 1px 1px 0; }
-
 .event-card .card-corner-tr,
 .event-card .card-corner-bl {
   position: absolute;
@@ -465,7 +515,6 @@ body.hindi-active .section-header h2 {
   border-radius: 50px;
   margin-bottom: 14px;
 }
-
 .event-card h3 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 2.5rem;
@@ -479,7 +528,6 @@ body.hindi-active .event-card h3 {
   font-family: 'Rozha One', serif;
   font-size: 2rem;
 }
-
 .event-datetime {
   font-family: 'Cinzel', serif;
   font-size: 0.96rem;
@@ -488,7 +536,6 @@ body.hindi-active .event-card h3 {
   margin: 8px 0;
   opacity: 0.9;
 }
-
 .event-location {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.4rem;
@@ -497,7 +544,6 @@ body.hindi-active .event-card h3 {
   margin-bottom: 6px;
   text-shadow: 0 1px 6px rgba(0,0,0,0.4);
 }
-
 .event-dress {
   display: inline-block;
   font-size: 0.98rem;
@@ -509,31 +555,16 @@ body.hindi-active .event-card h3 {
   font-weight: 300;
 }
 
-.haldi-card {
-  border-top: 2px solid rgba(183,150,230,0.8);
-  background: rgba(60,20,100,0.32);
-}
+.haldi-card  { border-top: 2px solid rgba(183,150,230,0.8); background: rgba(60,20,100,0.32); }
 .haldi-card .event-tag { border-color: rgba(183,150,230,0.6); color: #dbc8f8; }
 .haldi-card .event-datetime { color: #dbc8f8; }
-
-.sangeet-card {
-  border-top: 2px solid rgba(220,60,130,0.8);
-  background: rgba(60,5,30,0.32);
-}
+.sangeet-card { border-top: 2px solid rgba(220,60,130,0.8); background: rgba(60,5,30,0.32); }
 .sangeet-card .event-tag { border-color: rgba(220,80,140,0.6); color: #f8b8d0; }
 .sangeet-card .event-datetime { color: #f8b8d0; }
-
-.bhaat-card {
-  border-top: 2px solid rgba(220,150,50,0.8);
-  background: rgba(70,25,5,0.32);
-}
+.bhaat-card { border-top: 2px solid rgba(220,150,50,0.8); background: rgba(70,25,5,0.32); }
 .bhaat-card .event-tag { border-color: rgba(220,150,50,0.6); color: #fdd49a; }
 .bhaat-card .event-datetime { color: #fdd49a; }
-
-.wedding-card {
-  border-top: 2px solid rgba(201,150,60,0.9);
-  background: rgba(30,8,18,0.32);
-}
+.wedding-card { border-top: 2px solid rgba(201,150,60,0.9); background: rgba(30,8,18,0.32); }
 
 /* ===== VENUE ===== */
 .venue-section {
@@ -550,7 +581,6 @@ body.hindi-active .event-card h3 {
   height: 3px;
   background: var(--gold-gradient);
 }
-
 .venue-section h2 {
   font-family: 'Cinzel', serif;
   font-size: clamp(1.5rem, 4vw, 2.2rem);
@@ -561,7 +591,6 @@ body.hindi-active .event-card h3 {
 }
 body.hindi-active .venue-section h2 { font-family: 'Rozha One', serif; }
 
-/* ===== VENUE CARDS GRID ===== */
 .venue-cards {
   display: flex;
   justify-content: center;
@@ -572,7 +601,6 @@ body.hindi-active .venue-section h2 { font-family: 'Rozha One', serif; }
   margin-left: auto;
   margin-right: auto;
 }
-
 .venue-card {
   flex: 1;
   min-width: 260px;
@@ -590,8 +618,6 @@ body.hindi-active .venue-section h2 { font-family: 'Rozha One', serif; }
   transform: translateY(-6px);
   box-shadow: 0 18px 48px rgba(107,30,46,0.14);
 }
-
-/* Corner accents on venue cards */
 .venue-card::before, .venue-card::after {
   content: '';
   position: absolute;
@@ -602,7 +628,6 @@ body.hindi-active .venue-section h2 { font-family: 'Rozha One', serif; }
 }
 .venue-card::before { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
 .venue-card::after  { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
-
 .venue-card-corner-tr, .venue-card-corner-bl {
   position: absolute;
   width: 18px; height: 18px;
@@ -626,7 +651,6 @@ body.hindi-active .venue-section h2 { font-family: 'Rozha One', serif; }
   margin-bottom: 16px;
   background: rgba(107,30,46,0.04);
 }
-
 .venue-icon {
   display: flex;
   align-items: center;
@@ -638,8 +662,6 @@ body.hindi-active .venue-section h2 { font-family: 'Rozha One', serif; }
   background: radial-gradient(ellipse at center, rgba(201,150,60,0.12) 0%, rgba(107,30,46,0.06) 100%);
   border: 1px solid rgba(201,150,60,0.32);
 }
-.venue-icon svg { display: block; }
-
 .venue-name {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.8rem;
@@ -649,7 +671,6 @@ body.hindi-active .venue-section h2 { font-family: 'Rozha One', serif; }
   line-height: 1.2;
 }
 body.hindi-active .venue-name { font-family: 'Rozha One', serif; font-size: 1.5rem; }
-
 .venue-city {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.05rem;
@@ -657,7 +678,6 @@ body.hindi-active .venue-name { font-family: 'Rozha One', serif; font-size: 1.5r
   color: var(--text-mid);
   margin-bottom: 6px;
 }
-
 .venue-events {
   font-family: 'Poppins', sans-serif;
   font-size: 0.75rem;
@@ -668,7 +688,6 @@ body.hindi-active .venue-name { font-family: 'Rozha One', serif; font-size: 1.5r
   margin: 10px 0 22px;
   opacity: 0.85;
 }
-
 .venue-divider {
   width: 40px;
   height: 1px;
@@ -676,7 +695,6 @@ body.hindi-active .venue-name { font-family: 'Rozha One', serif; font-size: 1.5r
   margin: 16px auto;
   opacity: 0.6;
 }
-
 .map-btn {
   display: inline-flex;
   align-items: center;
@@ -698,7 +716,6 @@ body.hindi-active .venue-name { font-family: 'Rozha One', serif; font-size: 1.5r
   transform: translateY(-3px) scale(1.03);
   box-shadow: 0 12px 30px rgba(201,150,60,0.5);
 }
-
 .venue-sub {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.1rem;
@@ -731,10 +748,7 @@ footer::before {
   background-clip: text;
   margin-bottom: 6px;
 }
-body.hindi-active .footer-names {
-  font-family: 'Rozha One', serif;
-  font-size: 2rem;
-}
+body.hindi-active .footer-names { font-family: 'Rozha One', serif; font-size: 2rem; }
 .footer-msg {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.05rem;
@@ -743,7 +757,6 @@ body.hindi-active .footer-names {
   letter-spacing: 1px;
 }
 
-/* ===== SANGEET VIDEO ===== */
 .sangeet-video {
   position: absolute;
   inset: 0;
@@ -753,7 +766,6 @@ body.hindi-active .footer-names {
   z-index: 0;
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .hero-box { padding: 36px 20px; }
   .event-card { padding: 30px 24px; }
@@ -763,23 +775,21 @@ body.hindi-active .footer-names {
   .music-hint { bottom: 78px; right: 16px; font-size: 0.82rem; }
   .venue-cards { gap: 20px; }
   .venue-card { min-width: 240px; padding: 30px 20px 26px; }
+  .scroll-cue { bottom: 24px; }
 }
 </style>
 </head>
 <body>
 
-<!-- Background Music -->
 <audio id="bgMusic" loop preload="auto">
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Music Toggle Button -->
 <button class="music-btn" id="musicBtn" title="Toggle Music" onclick="toggleMusic()">
   <span class="music-icon" id="musicIcon">🎵</span>
 </button>
 <div class="music-hint" id="musicHint">♪ Tap to play music</div>
 
-<!-- Language Toggle -->
 <nav class="lang-switch">
   <button class="lang-btn active" onclick="setLanguage('en')">ENG</button>
   <button class="lang-btn" onclick="setLanguage('hi')">हिंदी</button>
@@ -795,7 +805,7 @@ body.hindi-active .footer-names {
 
       <div class="ganesh-text" data-key="ganesh">|| Shree Ganeshay Namah ||</div>
       <p class="save-date" data-key="saveDate">The Wedding Celebration of</p>
-      <h1 data-key="couple">Amit & Deevanshi</h1>
+      <h1 data-key="couple">Amit &amp; Deevanshi</h1>
       <p class="wedding-date" data-key="mainDate">April 19th, 2026</p>
 
       <div class="countdown">
@@ -806,10 +816,21 @@ body.hindi-active .footer-names {
       </div>
     </div>
   </div>
+
+  <!-- SCROLL CUE — inside .hero so it overlays the full-screen section -->
+  <a class="scroll-cue" id="scrollCue" href="#itinerary" aria-label="Scroll down to see the wedding itinerary">
+    <span class="scroll-cue-label">Scroll</span>
+    <div class="scroll-cue-mouse">
+      <div class="scroll-cue-wheel"></div>
+    </div>
+    <div class="scroll-cue-arrows">
+      <span></span><span></span><span></span>
+    </div>
+  </a>
 </section>
 
 <!-- ITINERARY HEADER -->
-<div class="section-header reveal">
+<div class="section-header reveal" id="itinerary">
   <h2 data-key="itineraryTitle">Wedding Itinerary</h2>
   <div class="ornament">❖ ✦ ❖</div>
 </div>
@@ -830,13 +851,7 @@ body.hindi-active .footer-names {
 <!-- SANGEET -->
 <section class="event-block reveal">
   <div class="event-bg sangeet-bg">
-    <video
-      class="sangeet-video"
-      autoplay
-      muted
-      loop
-      playsinline
-    >
+    <video class="sangeet-video" autoplay muted loop playsinline>
       <source src="dance.mp4" type="video/mp4">
     </video>
   </div>
@@ -846,7 +861,7 @@ body.hindi-active .footer-names {
     <h3 data-key="sangeetTitle">Sangeet Night</h3>
     <div class="event-datetime" data-key="sangeetDate">April 18, 2026 &nbsp;•&nbsp; 06:15 PM</div>
     <div class="event-location" data-key="sangeetLoc">Maheshwari Bhavan</div>
-    <span class="event-dress" data-key="sangeetDesc">✦ Glitz & Glamour ✦</span>
+    <span class="event-dress" data-key="sangeetDesc">✦ Glitz &amp; Glamour ✦</span>
   </div>
 </section>
 
@@ -883,93 +898,63 @@ body.hindi-active .footer-names {
   <p class="venue-sub" data-key="venueText">We can't wait to celebrate with you at these beautiful locations</p>
 
   <div class="venue-cards">
-
-    <!-- Maheshwari Bhavan -->
     <div class="venue-card">
       <span class="venue-card-corner-tr"></span>
       <span class="venue-card-corner-bl"></span>
-      <!-- Haveli / traditional hall icon -->
       <span class="venue-icon">
         <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Base platform -->
           <rect x="4" y="42" width="44" height="4" rx="1" fill="#c9963c" opacity="0.35"/>
-          <!-- Main hall body -->
           <rect x="10" y="28" width="32" height="14" rx="1" fill="#6b1e2e" opacity="0.12"/>
           <rect x="10" y="28" width="32" height="14" rx="1" stroke="#c9963c" stroke-width="1"/>
-          <!-- Central arch doorway -->
           <path d="M21 42 L21 34 Q26 29 31 34 L31 42Z" fill="#c9963c" opacity="0.18"/>
           <path d="M21 42 L21 34 Q26 29 31 34 L31 42" fill="none" stroke="#c9963c" stroke-width="1"/>
-          <!-- Left pillar -->
           <rect x="12" y="29" width="4" height="13" fill="#6b1e2e" opacity="0.2"/>
-          <!-- Right pillar -->
           <rect x="36" y="29" width="4" height="13" fill="#6b1e2e" opacity="0.2"/>
-          <!-- Central stepped tower -->
           <rect x="19" y="18" width="14" height="11" rx="1" fill="#6b1e2e" opacity="0.14"/>
           <rect x="19" y="18" width="14" height="11" rx="1" stroke="#c9963c" stroke-width="1"/>
-          <!-- Upper tower tier -->
           <rect x="22" y="11" width="8" height="8" rx="1" fill="#6b1e2e" opacity="0.14"/>
           <rect x="22" y="11" width="8" height="8" rx="1" stroke="#c9963c" stroke-width="1"/>
-          <!-- Shikhara dome tip -->
           <path d="M26 5 L23 11 L29 11 Z" fill="#c9963c" opacity="0.8"/>
-          <!-- Left side dome -->
           <path d="M13 28 Q13 22 17 22 Q21 22 21 28" fill="none" stroke="#c9963c" stroke-width="0.9" opacity="0.7"/>
-          <!-- Right side dome -->
           <path d="M31 28 Q31 22 35 22 Q39 22 39 28" fill="none" stroke="#c9963c" stroke-width="0.9" opacity="0.7"/>
-          <!-- Flag finial atop -->
           <line x1="26" y1="5" x2="26" y2="2" stroke="#c9963c" stroke-width="1" stroke-linecap="round"/>
           <polygon points="26,2 30,3.5 26,5" fill="#c9963c" opacity="0.9"/>
-          <!-- Decorative band across main hall -->
           <line x1="10" y1="32" x2="42" y2="32" stroke="#c9963c" stroke-width="0.6" opacity="0.5" stroke-dasharray="2 2"/>
         </svg>
       </span>
-      <div class="venue-badge" data-key="venueBadge1">Stay & Ceremonies</div>
+      <div class="venue-badge" data-key="venueBadge1">Stay &amp; Ceremonies</div>
       <div class="venue-name" data-key="venueName1">Maheshwari Bhavan</div>
       <div class="venue-city">Sri Ganganagar, Rajasthan</div>
       <div class="venue-divider"></div>
       <div class="venue-events" data-key="venueEvents1">Haldi · Sangeet · Mayra</div>
-      <a class="map-btn" target="_blank" href="https://maps.app.goo.gl/z3WUJu8RiM31ocX36" data-key="mapBtn1">
-        🗺 &nbsp;Navigate
-      </a>
+      <a class="map-btn" target="_blank" href="https://maps.app.goo.gl/z3WUJu8RiM31ocX36" data-key="mapBtn1">🗺 &nbsp;Navigate</a>
     </div>
 
-    <!-- City Garden -->
     <div class="venue-card">
       <span class="venue-card-corner-tr"></span>
       <span class="venue-card-corner-bl"></span>
-      <!-- Wedding mandap with florals icon -->
       <span class="venue-icon">
         <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Ground line -->
           <line x1="5" y1="44" x2="47" y2="44" stroke="#c9963c" stroke-width="0.8" opacity="0.4"/>
-          <!-- Left pillar -->
           <rect x="8" y="24" width="5" height="20" rx="1" fill="#6b1e2e" opacity="0.15"/>
           <rect x="8" y="24" width="5" height="20" rx="1" stroke="#c9963c" stroke-width="0.9"/>
-          <!-- Right pillar -->
           <rect x="39" y="24" width="5" height="20" rx="1" fill="#6b1e2e" opacity="0.15"/>
           <rect x="39" y="24" width="5" height="20" rx="1" stroke="#c9963c" stroke-width="0.9"/>
-          <!-- Mandap roof arch -->
           <path d="M6 24 Q26 8 46 24" fill="#6b1e2e" opacity="0.1" stroke="#c9963c" stroke-width="1"/>
-          <!-- Inner decorative arch -->
           <path d="M12 24 Q26 13 40 24" fill="none" stroke="#c9963c" stroke-width="0.7" opacity="0.6" stroke-dasharray="2 2"/>
-          <!-- Hanging marigold swag left -->
           <path d="M10 24 Q14 30 18 27 Q22 24 23 29" fill="none" stroke="#c9963c" stroke-width="1.2" stroke-linecap="round" opacity="0.75"/>
-          <!-- Hanging marigold swag right -->
           <path d="M42 24 Q38 30 34 27 Q30 24 29 29" fill="none" stroke="#c9963c" stroke-width="1.2" stroke-linecap="round" opacity="0.75"/>
-          <!-- Sacred fire / diya at center bottom -->
           <ellipse cx="26" cy="41" rx="5" ry="2" fill="#c9963c" opacity="0.2"/>
           <ellipse cx="26" cy="41" rx="5" ry="2" stroke="#c9963c" stroke-width="0.8"/>
           <path d="M26 41 Q24 37 26 34 Q28 37 26 41Z" fill="#c9963c" opacity="0.7"/>
-          <!-- Left floral bloom -->
           <circle cx="9" cy="22" r="3" fill="#6b1e2e" opacity="0.12" stroke="#c9963c" stroke-width="0.8"/>
           <line x1="9" y1="19" x2="9" y2="17" stroke="#c9963c" stroke-width="0.7" stroke-linecap="round" opacity="0.6"/>
           <line x1="6" y1="21" x2="4" y2="20" stroke="#c9963c" stroke-width="0.7" stroke-linecap="round" opacity="0.6"/>
           <line x1="12" y1="21" x2="14" y2="20" stroke="#c9963c" stroke-width="0.7" stroke-linecap="round" opacity="0.6"/>
-          <!-- Right floral bloom -->
           <circle cx="43" cy="22" r="3" fill="#6b1e2e" opacity="0.12" stroke="#c9963c" stroke-width="0.8"/>
           <line x1="43" y1="19" x2="43" y2="17" stroke="#c9963c" stroke-width="0.7" stroke-linecap="round" opacity="0.6"/>
           <line x1="40" y1="21" x2="38" y2="20" stroke="#c9963c" stroke-width="0.7" stroke-linecap="round" opacity="0.6"/>
           <line x1="46" y1="21" x2="48" y2="20" stroke="#c9963c" stroke-width="0.7" stroke-linecap="round" opacity="0.6"/>
-          <!-- Stars / sparkle above mandap -->
           <circle cx="26" cy="6" r="1" fill="#c9963c" opacity="0.8"/>
           <circle cx="20" cy="9" r="0.7" fill="#c9963c" opacity="0.5"/>
           <circle cx="32" cy="9" r="0.7" fill="#c9963c" opacity="0.5"/>
@@ -980,36 +965,29 @@ body.hindi-active .footer-names {
       <div class="venue-city">Sri Ganganagar, Rajasthan</div>
       <div class="venue-divider"></div>
       <div class="venue-events" data-key="venueEvents2">The Wedding · April 19 · 8:15 PM</div>
-      <a class="map-btn" target="_blank" href="https://maps.app.goo.gl/jw2c1pSFFBw5MGaB7" data-key="mapBtn2">
-        🗺 &nbsp;Navigate
-      </a>
+      <a class="map-btn" target="_blank" href="https://maps.app.goo.gl/jw2c1pSFFBw5MGaB7" data-key="mapBtn2">🗺 &nbsp;Navigate</a>
     </div>
-
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <p class="footer-names" data-key="footerNames">Pachisia & Maheshwari Family</p>
-  <p class="footer-msg" data-key="footerMsg">With love & blessings — we await your presence 💛</p>
+  <p class="footer-names" data-key="footerNames">Pachisia &amp; Maheshwari Family</p>
+  <p class="footer-msg" data-key="footerMsg">With love &amp; blessings — we await your presence 💛</p>
 </footer>
 
 <script>
 /* ===== BACKGROUND MUSIC ===== */
 const audio = document.getElementById('bgMusic');
-const musicBtn = document.getElementById('musicBtn');
 const musicIcon = document.getElementById('musicIcon');
 const musicHint = document.getElementById('musicHint');
 let musicPlaying = false;
 let hintDismissed = false;
 
-function startMusic() {
-  audio.volume = 0.45;
-  audio.play().then(() => {
-    musicPlaying = true;
-    musicIcon.textContent = '🔊';
-    dismissHint();
-  }).catch(() => {});
+function dismissHint() {
+  if (!hintDismissed) {
+    hintDismissed = true;
+    musicHint.classList.add('hidden');
+  }
 }
 
 function toggleMusic() {
@@ -1026,51 +1004,36 @@ function toggleMusic() {
   }
 }
 
-function dismissHint() {
-  if (!hintDismissed) {
-    hintDismissed = true;
-    musicHint.classList.add('hidden');
-  }
-}
-
 window.addEventListener('load', () => {
   audio.volume = 0.45;
-  const playPromise = audio.play();
-  if (playPromise !== undefined) {
-    playPromise.then(() => {
-      musicPlaying = true;
-      musicIcon.textContent = '🔊';
-      dismissHint();
-    }).catch(() => {
-      musicIcon.textContent = '🎵';
-    });
+  const p = audio.play();
+  if (p !== undefined) {
+    p.then(() => { musicPlaying = true; musicIcon.textContent = '🔊'; dismissHint(); }).catch(() => {});
   }
 });
 
 function handleFirstInteraction() {
   if (!musicPlaying) {
     audio.volume = 0.45;
-    audio.play().then(() => {
-      musicPlaying = true;
-      musicIcon.textContent = '🔊';
-      dismissHint();
-    }).catch(() => {});
+    audio.play().then(() => { musicPlaying = true; musicIcon.textContent = '🔊'; dismissHint(); }).catch(() => {});
   }
   document.removeEventListener('click', handleFirstInteraction);
   document.removeEventListener('touchstart', handleFirstInteraction);
   document.removeEventListener('keydown', handleFirstInteraction);
   document.removeEventListener('scroll', handleFirstInteraction);
 }
-
 document.addEventListener('click', handleFirstInteraction);
 document.addEventListener('touchstart', handleFirstInteraction);
 document.addEventListener('keydown', handleFirstInteraction);
 document.addEventListener('scroll', handleFirstInteraction, { passive: true });
+setTimeout(() => { if (!hintDismissed) dismissHint(); }, 6000);
 
-setTimeout(() => {
-  if (!hintDismissed) dismissHint();
-}, 6000);
-
+/* ===== SCROLL CUE HIDE ON SCROLL ===== */
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 80) {
+    document.getElementById('scrollCue')?.classList.add('hide');
+  }
+}, { passive: true });
 
 /* ===== TRANSLATIONS ===== */
 const translations = {
@@ -1081,38 +1044,20 @@ const translations = {
     mainDate: "April 19th, 2026",
     dayLabel: "Days", hrLabel: "Hrs", minLabel: "Mins", secLabel: "Secs",
     itineraryTitle: "Wedding Itinerary",
-    haldiTag: "Haldi Ceremony",
-    haldiTitle: "Haldi Carnival",
-    haldiDate: "April 18, 2026 • 11:15 AM",
-    haldiLoc: "Maheshwari Bhavan",
-    haldiDesc: "✦ Shades of Lavender ✦",
-    sangeetTag: "Sangeet Night",
-    sangeetTitle: "Sangeet Night",
-    sangeetDate: "April 18, 2026 • 06:15 PM",
-    sangeetLoc: "Maheshwari Bhavan",
-    sangeetDesc: "✦ Glitz & Glamour ✦",
-    bhaatTag: "Mayra",
-    bhaatTitle: "Mayra",
-    bhaatDate: "April 19, 2026 • 11:15 AM",
-    bhaatLoc: "Maheshwari Bhavan",
-    bhaatDesc: "✦ Traditional Attire ✦",
-    weddingTag: "The Wedding",
-    weddingTitle: "The Wedding Ceremony",
-    weddingDate: "April 19, 2026 • 08:15 PM",
-    weddingLoc: "City Garden, Sri Ganganagar",
-    weddingDesc: "✦ Ethnic / Formal ✦",
-    venueTitle: "The Venues",
-    venueText: "We can't wait to celebrate with you at these beautiful locations",
-    venueBadge1: "Stay & Ceremonies",
-    venueName1: "Maheshwari Bhavan",
-    venueEvents1: "Haldi · Sangeet · Mayra",
+    haldiTag: "Haldi Ceremony", haldiTitle: "Haldi Carnival",
+    haldiDate: "April 18, 2026 • 11:15 AM", haldiLoc: "Maheshwari Bhavan", haldiDesc: "✦ Shades of Lavender ✦",
+    sangeetTag: "Sangeet Night", sangeetTitle: "Sangeet Night",
+    sangeetDate: "April 18, 2026 • 06:15 PM", sangeetLoc: "Maheshwari Bhavan", sangeetDesc: "✦ Glitz & Glamour ✦",
+    bhaatTag: "Mayra", bhaatTitle: "Mayra",
+    bhaatDate: "April 19, 2026 • 11:15 AM", bhaatLoc: "Maheshwari Bhavan", bhaatDesc: "✦ Traditional Attire ✦",
+    weddingTag: "The Wedding", weddingTitle: "The Wedding Ceremony",
+    weddingDate: "April 19, 2026 • 08:15 PM", weddingLoc: "City Garden, Sri Ganganagar", weddingDesc: "✦ Ethnic / Formal ✦",
+    venueTitle: "The Venues", venueText: "We can't wait to celebrate with you at these beautiful locations",
+    venueBadge1: "Stay & Ceremonies", venueName1: "Maheshwari Bhavan", venueEvents1: "Haldi · Sangeet · Mayra",
     mapBtn1: "🗺 \u00a0Navigate",
-    venueBadge2: "Wedding Ceremony",
-    venueName2: "City Garden",
-    venueEvents2: "The Wedding · April 19 · 8:15 PM",
+    venueBadge2: "Wedding Ceremony", venueName2: "City Garden", venueEvents2: "The Wedding · April 19 · 8:15 PM",
     mapBtn2: "🗺 \u00a0Navigate",
-    footerNames: "Pachisia & Maheshwari Pariwar",
-    footerMsg: "With love & blessings — we await your presence 💛"
+    footerNames: "Pachisia & Maheshwari Pariwar", footerMsg: "With love & blessings — we await your presence 💛"
   },
   hi: {
     ganesh: "|| श्री गणेशाय नमः ||",
@@ -1121,38 +1066,20 @@ const translations = {
     mainDate: "19 अप्रैल 2026",
     dayLabel: "दिन", hrLabel: "घंटे", minLabel: "मिनट", secLabel: "सेकंड",
     itineraryTitle: "विवाह कार्यक्रम",
-    haldiTag: "हल्दी",
-    haldiTitle: "हल्दी उत्सव",
-    haldiDate: "18 अप्रैल 2026 • प्रात: 11:15",
-    haldiLoc: "महेश्वरी भवन",
-    haldiDesc: "✦ लैवेंडर परिधान ✦",
-    sangeetTag: "संगीत संध्या",
-    sangeetTitle: "संगीत संध्या",
-    sangeetDate: "18 अप्रैल 2026 • सायं 6:15",
-    sangeetLoc: "महेश्वरी भवन",
-    sangeetDesc: "✦ नृत्य और उत्सव ✦",
-    bhaatTag: "मायरा भात",
-    bhaatTitle: "मायरा",
-    bhaatDate: "19 अप्रैल 2026 • प्रात: 11:15",
-    bhaatLoc: "महेश्वरी भवन",
-    bhaatDesc: "✦ पारंपरिक वेशभूषा ✦",
-    weddingTag: "शुभ विवाह",
-    weddingTitle: "विवाह महोत्सव",
-    weddingDate: "19 अप्रैल 2026 • रात्रि 8:15",
-    weddingLoc: "सिटी गार्डन, श्री गंगानगर",
-    weddingDesc: "✦ पारंपरिक परिधान / औपचारिक ✦",
-    venueTitle: "विवाह स्थल",
-    venueText: "हमें आपके आगमन की प्रतीक्षा रहेगी इन खूबसूरत स्थलों पर",
-    venueBadge1: "ठहरने व आयोजन हेतु",
-    venueName1: "महेश्वरी भवन",
-    venueEvents1: "हल्दी · संगीत · मायरा",
+    haldiTag: "हल्दी", haldiTitle: "हल्दी उत्सव",
+    haldiDate: "18 अप्रैल 2026 • प्रात: 11:15", haldiLoc: "महेश्वरी भवन", haldiDesc: "✦ लैवेंडर परिधान ✦",
+    sangeetTag: "संगीत संध्या", sangeetTitle: "संगीत संध्या",
+    sangeetDate: "18 अप्रैल 2026 • सायं 6:15", sangeetLoc: "महेश्वरी भवन", sangeetDesc: "✦ नृत्य और उत्सव ✦",
+    bhaatTag: "मायरा भात", bhaatTitle: "मायरा",
+    bhaatDate: "19 अप्रैल 2026 • प्रात: 11:15", bhaatLoc: "महेश्वरी भवन", bhaatDesc: "✦ पारंपरिक वेशभूषा ✦",
+    weddingTag: "शुभ विवाह", weddingTitle: "विवाह महोत्सव",
+    weddingDate: "19 अप्रैल 2026 • रात्रि 8:15", weddingLoc: "सिटी गार्डन, श्री गंगानगर", weddingDesc: "✦ पारंपरिक परिधान / औपचारिक ✦",
+    venueTitle: "विवाह स्थल", venueText: "हमें आपके आगमन की प्रतीक्षा रहेगी इन खूबसूरत स्थलों पर",
+    venueBadge1: "ठहरने व आयोजन हेतु", venueName1: "महेश्वरी भवन", venueEvents1: "हल्दी · संगीत · मायरा",
     mapBtn1: "🗺 \u00a0नेविगेट करें",
-    venueBadge2: "विवाह समारोह",
-    venueName2: "सिटी गार्डन",
-    venueEvents2: "विवाह · 19 अप्रैल · रात्रि 8:15",
+    venueBadge2: "विवाह समारोह", venueName2: "सिटी गार्डन", venueEvents2: "विवाह · 19 अप्रैल · रात्रि 8:15",
     mapBtn2: "🗺 \u00a0नेविगेट करें",
-    footerNames: "पचीसिया एवं महेश्वरी परिवार",
-    footerMsg: "सस्नेह निमंत्रण एवं आशीर्वाद 💛"
+    footerNames: "पचीसिया एवं महेश्वरी परिवार", footerMsg: "सस्नेह निमंत्रण एवं आशीर्वाद 💛"
   }
 };
 
@@ -1173,10 +1100,10 @@ function updateCountdown() {
   const diff = weddingDate - new Date();
   if (diff <= 0) return;
   const fmt = n => String(n).padStart(2, '0');
-  document.getElementById('days').textContent = fmt(Math.floor(diff / 86400000));
+  document.getElementById('days').textContent  = fmt(Math.floor(diff / 86400000));
   document.getElementById('hours').textContent = fmt(Math.floor(diff / 3600000) % 24);
-  document.getElementById('mins').textContent = fmt(Math.floor(diff / 60000) % 60);
-  document.getElementById('secs').textContent = fmt(Math.floor(diff / 1000) % 60);
+  document.getElementById('mins').textContent  = fmt(Math.floor(diff / 60000) % 60);
+  document.getElementById('secs').textContent  = fmt(Math.floor(diff / 1000) % 60);
 }
 setInterval(updateCountdown, 1000);
 updateCountdown();
